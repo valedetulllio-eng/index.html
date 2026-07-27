@@ -1,0 +1,1173 @@
+index.html
+echo "# index.html" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/valedetulllio-eng/index.html.git
+git push -u origin main
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protocollo Blu Commerciale</title>
+  
+  <style>
+    :root {
+      --nero: #050505;
+      --nero-secondario: #0d0d0d;
+      --grigio-scuro: #181818;
+      --grigio: #777777;
+      --grigio-chiaro: #c9c9c9;
+      --bianco: #f2f2f2;
+
+      --blu-scuro: #061426;
+      --blu-pannello: #071b31;
+      --blu: #0d6efd;
+      --azzurro: #65c7ff;
+      --testo: #eaf6ff;
+
+      --successo: #68f5a3;
+      --errore: #ff6b6b;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--nero);
+      color: var(--bianco);
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    button, input { font: inherit; }
+    button { touch-action: manipulation; }
+
+    .screen {
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .hidden { display: none !important; }
+
+    /* INTRO MILITARE */
+    .intro-screen {
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background:
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px),
+        var(--nero);
+      background-size: 34px 34px;
+    }
+
+    .intro-panel {
+      width: min(100%, 760px);
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #343434;
+      background: linear-gradient(145deg, #111, #080808);
+      box-shadow: 0 0 55px rgba(0,0,0,.9);
+    }
+
+    .topbar, .footerbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 18px;
+      color: #858585;
+      font-size: .72rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .topbar { border-bottom: 1px solid #292929; }
+    .footerbar { margin-top: auto; border-top: 1px solid #292929; }
+
+    .intro-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 54px 48px;
+    }
+
+    .classification {
+      margin: 0 0 14px;
+      color: #999;
+      font-size: .74rem;
+      letter-spacing: .28em;
+    }
+
+    .intro-content h1 {
+      margin: 0;
+      font-size: clamp(2.1rem, 7vw, 4rem);
+      line-height: .95;
+      letter-spacing: -.04em;
+    }
+
+    .intro-content h1 span {
+      display: block;
+      color: #929292;
+      font-weight: 400;
+    }
+
+    .divider {
+      width: 78px;
+      height: 2px;
+      margin: 30px 0;
+      background: #707070;
+    }
+
+    .intro-description {
+      max-width: 500px;
+      margin: 0 0 30px;
+      color: #aaa;
+      line-height: 1.7;
+    }
+
+    .status-box {
+      margin-bottom: 32px;
+      border-top: 1px solid #303030;
+      border-bottom: 1px solid #303030;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 0;
+      border-bottom: 1px solid #202020;
+      color: #757575;
+      font-size: .74rem;
+      letter-spacing: .11em;
+    }
+
+    .status-row:last-child { border-bottom: 0; }
+    .status-row strong { color: #d2d2d2; font-weight: 400; }
+    .status-row:first-child strong { color: #a8c2a8; }
+
+    .military-button {
+      width: 100%;
+      padding: 16px 20px;
+      border: 1px solid #777;
+      background: transparent;
+      color: var(--bianco);
+      letter-spacing: .12em;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .military-button:hover {
+      background: var(--bianco);
+      color: var(--nero);
+    }
+
+    .military-button:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    .loading {
+      min-height: 22px;
+      margin: 18px 0 0;
+      color: #777;
+      font-size: .76rem;
+      letter-spacing: .08em;
+    }
+
+    /* MODULI BLU */
+    .module-screen {
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top, #123b66 0%, var(--blu-scuro) 55%, #020812 100%);
+      color: var(--testo);
+    }
+
+    .card {
+      width: min(100%, 760px);
+      padding: 30px 24px;
+      border: 1px solid rgba(101, 199, 255, .45);
+      border-radius: 20px;
+      background: rgba(3, 15, 30, .94);
+      box-shadow: 0 0 35px rgba(13, 110, 253, .22);
+      backdrop-filter: blur(10px);
+    }
+
+    .module-label {
+      margin: 0 0 8px;
+      color: var(--azzurro);
+      font-size: .78rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .card h2 {
+      margin: 0 0 22px;
+      color: var(--testo);
+      font-size: clamp(1.7rem, 6vw, 2.8rem);
+      line-height: 1.05;
+    }
+
+    .enigma, .instruction {
+      margin: 0 0 24px;
+      padding-left: 16px;
+      border-left: 3px solid var(--blu);
+      color: var(--testo);
+      font-size: clamp(1rem, 3.8vw, 1.22rem);
+      line-height: 1.7;
+    }
+
+    .enigma {
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--azzurro);
+      font-size: .9rem;
+    }
+
+    .answer-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      min-width: 0;
+      flex: 1;
+      padding: 14px 15px;
+      border: 1px solid rgba(101, 199, 255, .5);
+      border-radius: 12px;
+      outline: none;
+      background: var(--blu-pannello);
+      color: white;
+    }
+
+    input:focus {
+      border-color: var(--azzurro);
+      box-shadow: 0 0 0 3px rgba(101, 199, 255, .12);
+    }
+
+    .action-button, .next-button {
+      padding: 14px 18px;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--blu), #29a9ff);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .15s ease;
+    }
+
+    .action-button:hover, .next-button:hover {
+      box-shadow: 0 0 20px rgba(41,169,255,.28);
+    }
+
+    .action-button:active, .next-button:active {
+      transform: translateY(1px);
+    }
+
+    .action-button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .next-button {
+      display: none;
+      width: 100%;
+      margin-top: 14px;
+    }
+
+    .message {
+      min-height: 28px;
+      margin: 16px 0 0;
+      line-height: 1.5;
+    }
+
+    .error { color: var(--errore); }
+    .success { color: var(--successo); }
+
+    .fragment {
+      display: none;
+      margin-top: 20px;
+      padding: 16px;
+      border: 1px solid rgba(104,245,163,.5);
+      border-radius: 14px;
+      background: rgba(104,245,163,.07);
+      text-align: center;
+    }
+
+    .fragment strong {
+      display: block;
+      margin-top: 6px;
+      color: var(--successo);
+      font-size: 2.5rem;
+    }
+
+    /* DUE GUARDIANI */
+    .guardian-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .guardian-choice {
+      width: 100%;
+      padding: 15px 16px;
+      border: 1px solid rgba(101,199,255,.4);
+      border-radius: 12px;
+      background: var(--blu-pannello);
+      color: var(--testo);
+      text-align: left;
+      line-height: 1.5;
+      cursor: pointer;
+      transition: .15s ease;
+    }
+
+    .guardian-choice:hover {
+      border-color: var(--azzurro);
+      background: #0a2745;
+    }
+
+    .guardian-choice:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    /* PUNTINO */
+    .scan-panel {
+      position: relative;
+      min-height: 320px;
+      border: 1px solid rgba(101,199,255,.32);
+      background:
+        linear-gradient(rgba(101,199,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(101,199,255,.025) 1px, transparent 1px),
+        #04101f;
+      background-size: 28px 28px;
+      overflow: hidden;
+    }
+
+    .scan-text {
+      padding: 22px;
+      color: #7899b7;
+      line-height: 1.7;
+      font-size: .85rem;
+    }
+
+    .pulse-dot {
+      position: absolute;
+      right: 28px;
+      bottom: 28px;
+      width: 12px;
+      height: 12px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: var(--azzurro);
+      box-shadow: 0 0 0 0 rgba(101,199,255,.45);
+      animation: pulse 5s infinite;
+      cursor: pointer;
+    }
+
+    @keyframes pulse {
+      0%, 93% {
+        background: #04101f;
+        box-shadow: none;
+      }
+
+      94%, 99.9% {
+        background: var(--azzurro);
+        box-shadow:
+          0 0 0 7px rgba(101,199,255,.13),
+          0 0 18px rgba(101,199,255,.85);
+      }
+
+      100% {
+        background: #04101f;
+        box-shadow: none;
+      }
+    }
+      90%, 99% {
+        background: var(--azzurro);
+        box-shadow:
+          0 0 0 7px rgba(101,199,255,.13),
+          0 0 18px rgba(101,199,255,.85);
+      }
+      100% { box-shadow: none; background: #04101f; }
+    }
+      70% { box-shadow: 0 0 0 18px rgba(101,199,255,0); }
+      100% { box-shadow: 0 0 0 0 rgba(101,199,255,0); }
+    }
+
+    /* CRONOMETRO */
+    .timer {
+      margin: 38px 0;
+      text-align: center;
+      font-size: clamp(4rem, 18vw, 8rem);
+      line-height: 1;
+      letter-spacing: .03em;
+      color: var(--azzurro);
+      text-shadow:
+        0 0 20px rgba(101,199,255,.32),
+        0 0 42px rgba(13,110,253,.22);
+    }
+
+    .button-stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    /* MEMORY */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .memory-pad {
+      min-height: 110px;
+      border: 1px solid rgba(101,199,255,.35);
+      border-radius: 14px;
+      background: var(--blu-pannello);
+      cursor: pointer;
+      transition: .12s;
+    }
+
+    .memory-pad.active {
+      background: var(--azzurro);
+      box-shadow: 0 0 28px rgba(101,199,255,.5);
+    }
+
+    /* TRUE CRIME */
+    .case-file {
+      padding: 18px;
+      border: 1px solid rgba(101,199,255,.32);
+      border-radius: 12px;
+      background: #04101f;
+      color: var(--testo);
+      line-height: 1.7;
+    }
+
+    .choice-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .choice {
+      padding: 14px;
+      border: 1px solid rgba(101,199,255,.4);
+      border-radius: 10px;
+      background: var(--blu-pannello);
+      color: var(--testo);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .choice:hover {
+      border-color: var(--azzurro);
+      background: #0a2745;
+    }
+
+    audio {
+      width: 100%;
+      margin: 16px 0;
+    }
+
+    /* SEMAFORO */
+    .lights {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 28px 0;
+    }
+
+    .light {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid #4b4b4b;
+      background: #151515;
+    }
+
+    .light.on {
+      background: #d43d3d;
+      box-shadow: 0 0 20px rgba(255,70,70,.75);
+    }
+
+    .reaction-zone {
+      min-height: 150px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed rgba(101,199,255,.5);
+      border-radius: 14px;
+      color: #7899b7;
+      background: #04101f;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    .reaction-zone.ready {
+      color: white;
+      border-color: var(--azzurro);
+      box-shadow: 0 0 22px rgba(101,199,255,.2);
+    }
+
+    /* FINALE */
+    .fragments-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .fragment-chip {
+      min-width: 46px;
+      padding: 12px;
+      border: 1px solid rgba(101,199,255,.4);
+      border-radius: 9px;
+      text-align: center;
+      color: var(--azzurro);
+      font-weight: bold;
+      font-size: 1.3rem;
+      background: var(--blu-pannello);
+    }
+
+    .progress {
+      height: 14px;
+      margin: 22px 0;
+      border: 1px solid rgba(101,199,255,.4);
+      background: #04101f;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--blu), var(--azzurro));
+      transition: width .3s linear;
+    }
+
+    .voucher {
+      padding: 24px;
+      border: 1px solid rgba(101,199,255,.45);
+      border-radius: 16px;
+      background: #04101f;
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    .voucher h3 {
+      margin-top: 0;
+      color: var(--azzurro);
+      font-size: 1.7rem;
+    }
+
+    @media (max-width: 560px) {
+      .intro-content { padding: 42px 24px; }
+      .topbar, .footerbar { flex-direction: column; gap: 6px; }
+      .answer-row { flex-direction: column; }
+      .answer-row .action-button { width: 100%; }
+    }
+  
+    .gestalt-field {
+      position: relative;
+      min-height: 390px;
+      margin-top: 18px;
+      border: 1px solid rgba(101,199,255,.28);
+      border-radius: 14px;
+      background:
+        linear-gradient(rgba(101,199,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(101,199,255,.02) 1px, transparent 1px),
+        #04101f;
+      background-size: 30px 30px;
+      overflow: hidden;
+    }
+
+    .gestalt-piece {
+      position: absolute;
+      width: 58px;
+      height: 58px;
+      opacity: .72;
+      pointer-events: none;
+    }
+
+    .gestalt-piece svg { width: 100%; height: 100%; }
+
+    .gestalt-stroke {
+      fill: none;
+      stroke: #9db8cf;
+      stroke-width: 7;
+      stroke-linecap: round;
+    }
+
+    .gestalt-target {
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      width: 138px;
+      height: 138px;
+      transform: translate(-50%, -50%);
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .gestalt-target.reveal {
+      border: 2px solid var(--azzurro);
+      box-shadow: 0 0 28px rgba(101,199,255,.35);
+      animation: gestaltReveal .85s ease;
+    }
+
+    @keyframes gestaltReveal {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(.88); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    .password-pattern {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin: 22px 0 28px;
+      flex-wrap: wrap;
+    }
+
+    .password-group { display: flex; gap: 6px; }
+    .password-gap { width: 18px; }
+
+    .password-line {
+      width: 22px;
+      height: 22px;
+      border-bottom: 1px solid rgba(234,246,255,.75);
+    }
+
+  
+    .code-editor {
+      width: 100%;
+      min-height: 170px;
+      padding: 18px;
+      border: 1px solid rgba(101,199,255,.5);
+      border-radius: 12px;
+      outline: none;
+      resize: vertical;
+      background: #020b15;
+      color: #dff3ff;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 1rem;
+      line-height: 1.6;
+      tab-size: 4;
+      white-space: pre;
+      overflow: auto;
+    }
+
+    .code-editor:focus {
+      border-color: var(--azzurro);
+      box-shadow: 0 0 0 3px rgba(101,199,255,.12);
+    }
+
+    .code-hint {
+      margin-top: 10px;
+      color: #7899b7;
+      font-size: .84rem;
+      line-height: 1.5;
+    }
+
+  
+    .error-screen {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      padding: 24px;
+      background:
+        radial-gradient(circle at center, #240000 0%, #090000 60%, #020202 100%);
+      text-align: center;
+    }
+
+    .error-panel {
+      width: min(100%, 760px);
+      padding: 34px 26px;
+      border: 1px solid rgba(255, 80, 80, .55);
+      border-radius: 18px;
+      background: rgba(20, 0, 0, .92);
+      box-shadow: 0 0 42px rgba(255, 0, 0, .18);
+    }
+
+    .blinking-error {
+      margin: 0 0 26px;
+      color: #ff3b3b;
+      font-size: clamp(2.4rem, 10vw, 5.8rem);
+      letter-spacing: .08em;
+      animation: dangerBlink .85s steps(1, end) infinite;
+      text-shadow:
+        0 0 12px rgba(255, 0, 0, .65),
+        0 0 30px rgba(255, 0, 0, .35);
+    }
+
+    @keyframes dangerBlink {
+      0%, 48% { opacity: 1; }
+      49%, 100% { opacity: .16; }
+    }
+
+    .warning-title {
+      margin: 0 0 18px;
+      color: #ff8b8b;
+      font-size: 1.2rem;
+      letter-spacing: .18em;
+    }
+
+    .warning-copy {
+      margin: 0 auto 28px;
+      max-width: 620px;
+      color: #ffd6d6;
+      font-size: clamp(1rem, 3.8vw, 1.28rem);
+      line-height: 1.7;
+    }
+
+    .final-data {
+      display: grid;
+      gap: 14px;
+      margin: 24px 0;
+      text-align: left;
+    }
+
+    .final-data-row {
+      display: grid;
+      grid-template-columns: minmax(130px, .8fr) minmax(0, 1.2fr);
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(101,199,255,.2);
+    }
+
+    .final-data-row span:first-child {
+      color: #7899b7;
+    }
+
+    .final-data-row strong {
+      color: var(--testo);
+      font-weight: 400;
+    }
+
+    @media (max-width: 560px) {
+      .final-data-row {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+    }
+
+  </style>
+
+</head>
+<body>
+<section id="intro" class="screen intro-screen"><div class="intro-panel"><div class="topbar"><span>UNITÀ RISERVATA</span><span>LIVELLO 04</span></div><div class="intro-content"><p class="classification">CLASSIFICATO</p><h1>PROTOCOLLO <span>BLU COMMERCIALE</span></h1><div class="divider"></div><p class="intro-description">Sistema riservato di autenticazione, verifica dell’identità e protezione dei beni personali.</p><div class="status-box"><div class="status-row"><span>SISTEMA</span><strong>ONLINE</strong></div><div class="status-row"><span>ACCESSO</span><strong>LIMITATO</strong></div><div class="status-row"><span>SOGGETTO</span><strong>NON VERIFICATO</strong></div></div><button id="startButton" class="military-button">INIZIALIZZA PROTOCOLLO</button><p id="loadingText" class="loading"></p></div><div class="footerbar"><span>BC-01</span><span>CONNESSIONE PROTETTA</span></div></div></section>
+
+<section id="module1" class="screen module-screen hidden"><div class="card"><p class="module-label">Modulo 01 · Identificazione</p><h2>Il primo interrogatorio</h2><div class="enigma">In guerra ascoltai parole che nessuno avrebbe dovuto capire.<br>In pace domandai se una macchina potesse sembrare umana.<br>Non cercavo ciò che pensava,<br>ma ciò che riusciva a far credere.</div><form id="turingForm"><label for="turingAnswer">Inserisci il cognome:</label><div class="answer-row"><input id="turingAnswer" autocomplete="off" placeholder="Risposta..."><button class="action-button" type="submit">VERIFICA</button></div></form><p id="turingMessage" class="message"></p><div id="turingFragment" class="fragment">FRAMMENTO RECUPERATO:<strong>T</strong></div><button id="next1" class="next-button">CONTINUA</button></div></section>
+
+<section id="module2" class="screen module-screen hidden"><div class="card"><p class="module-label">Modulo 02 · Logica</p><h2>Protocollo dei due guardiani</h2><div class="instruction">Davanti a te ci sono due porte.<br>Una conduce avanti, l’altra chiude il protocollo.<br><br>Accanto alle porte stanno due guardiani: uno dice sempre la verità, l’altro mente sempre. Non sai chi sia chi e puoi rivolgere una sola domanda a uno solo dei due.<br><br>Quale domanda ti permette di individuare la porta corretta?</div><div class="guardian-grid"><button class="guardian-choice" data-guardian="a">A. «Quale porta conduce avanti?»</button><button class="guardian-choice" data-guardian="b">B. «Se chiedessi all’altro guardiano quale porta conduce avanti, quale indicherebbe?» Poi sceglierei l’altra.</button><button class="guardian-choice" data-guardian="c">C. «Sei tu quello che dice la verità?»</button><button class="guardian-choice" data-guardian="d">D. «La porta di destra è quella corretta?»</button></div><p id="guardianMessage" class="message"></p><div id="guardianFragment" class="fragment">CONTRADDIZIONE NEUTRALIZZATA.<strong>O</strong></div><button id="next2" class="next-button">CONTINUA</button></div></section>
+
+<section id="module3" class="screen module-screen hidden"><div class="card"><p class="module-label">Modulo 03 · Osservazione</p><h2>Segnale residuo</h2><div class="instruction">Il sistema non risponde alle parole.<br>Cerca ciò che continua a muoversi anche quando tutto sembra fermo.</div><div class="scan-panel"><div class="scan-text">SCANSIONE SETTORE 7...<br>NESSUNA ANOMALIA RILEVATA.<br>CONTROLLO VISIVO RICHIESTO.<br>STATO: APPARENTEMENTE STABILE.</div><button id="hiddenDot" class="pulse-dot"></button></div><p id="hiddenMessage" class="message"></p><div id="hiddenFragment" class="fragment">OSSERVAZIONE CONFERMATA.<strong>P</strong></div><button id="next3" class="next-button">CONTINUA</button></div></section>
+
+<section id="module4" class="screen module-screen hidden">
+  <div class="card">
+    <p class="module-label">Modulo 04 · Origine simbolica</p>
+    <h2>Il nome ritrovato</h2>
+
+    <div class="enigma">
+      Un tempo avevo un altro nome.<br>
+      Non fui mai presa,<br>
+      ma oggi porto la libertà nel mio.
+      <br><br>
+      Chi sono?
+    </div>
+
+    <form id="italiaForm">
+      <label for="italiaAnswer">Inserisci il paese:</label>
+      <div class="answer-row">
+        <input id="italiaAnswer" autocomplete="off" placeholder="Risposta...">
+        <button class="action-button" type="submit">VERIFICA</button>
+      </div>
+    </form>
+
+    <p id="italiaMessage" class="message"></p>
+    <div id="italiaFragment" class="fragment">IDENTITÀ CONFERMATA.<strong>D</strong></div>
+    <button id="next4" class="next-button">CONTINUA</button>
+  </div>
+</section>
+
+<section id="module5" class="screen module-screen hidden">
+  <div class="card">
+    <p class="module-label">Modulo 05 · Debugging</p>
+    <h2>Asse sbagliato</h2>
+
+    <div class="instruction">
+      Il codice viene eseguito senza errori,<br>
+      ma il modello assegna le classi nel modo sbagliato.<br><br>
+      Correggi direttamente il codice.
+    </div>
+
+    <textarea
+      id="pytorchEditor"
+      class="code-editor"
+      spellcheck="false"
+      aria-label="Editor di codice PyTorch"
+    >prediction = torch.argmax(logits, dim=0)</textarea>
+
+    <p class="code-hint">
+      Puoi modificare qualsiasi parte del codice. Il sistema controllerà il risultato finale, non il percorso.
+    </p>
+
+    <button id="pytorchVerify" class="action-button" type="button">
+      ESEGUI DEBUG
+    </button>
+
+    <p id="pytorchMessage" class="message"></p>
+    <div id="pytorchFragment" class="fragment">
+      ASSE DI CLASSIFICAZIONE CORRETTO.
+      <strong>T</strong>
+    </div>
+
+    <button id="next5" class="next-button">CONTINUA</button>
+  </div>
+</section>
+
+<section id="module6" class="screen module-screen hidden"><div class="card"><p class="module-label">Modulo 06 · Pattern recognition</p><h2>Sequenza neurale</h2><div class="instruction">Una macchina riconosce schemi. Un essere umano dovrebbe almeno provarci.<br>Osserva la sequenza e ripetila. Prima 3 luci, poi 4, infine 6.</div><div class="memory-grid"><button class="memory-pad" data-pad="0"></button><button class="memory-pad" data-pad="1"></button><button class="memory-pad" data-pad="2"></button><button class="memory-pad" data-pad="3"></button></div><button id="memoryStart" class="action-button">AVVIA TEST</button><p id="memoryMessage" class="message"></p><div id="memoryFragment" class="fragment">PATTERN RICONOSCIUTO.<strong>I</strong></div><button id="next6" class="next-button">CONTINUA</button></div></section>
+
+<section id="module7" class="screen module-screen hidden"><div class="card"><p class="module-label">Modulo 07 · Energia</p><h2>Corrente alternata</h2><div class="enigma">Ho discusso con chi voleva vendere al mondo una forma diversa di corrente.<br>Il mio nome oggi corre sulle strade,<br>benchè io non abbia mai guidato quelle automobili.<br>Compresi l’energia meglio del denaro.</div><form id="teslaForm"><label for="teslaAnswer">Inserisci il cognome:</label><div class="answer-row"><input id="teslaAnswer" autocomplete="off" placeholder="Risposta..."><button class="action-button" type="submit">VERIFICA</button></div></form><p id="teslaMessage" class="message"></p><div id="teslaFragment" class="fragment">ENERGIA STABILIZZATA.<strong>M</strong></div><button id="next7" class="next-button">CONTINUA</button></div></section>
+
+<section id="module8" class="screen module-screen hidden"><div class="card"><p class="module-label">Modulo 08 · Analisi forense</p><h2>Case file: il portafoglio blu</h2><div class="case-file">Ore 21:43.<br>Il soggetto si trovano ancora al tavolo.<br>Il portafoglio viene lasciato in una posizione visibile e facilmente raggiungibile.<br>si domnda l'esibizione della tessera universitaria, presentando la richiesta come una curiosità innocua.<br>La domanda appare coerente con la conversazione e non genera particolare allarme.<br>Durante lo scambio, il richiedente chidere d'osservare la tessera da più vicino.<br>Il portafoglio viene quindi sottratto senza forza, minacce o strumenti.<br>Non vengono rilevati segni di coercizione né un tentativo immediato di fuga.<br>Il soggetto continua realizza con qualche secondo di ritardo l'errore commeso.<br>La sospettata dichiara successivamente di aver agito per impedirgli di offrire ancora.</div><p class="instruction">Quale tecnica è stata utilizzata?</p><div class="choice-list"><button class="choice" data-case="furto">A. Furto con destrezza</button><button class="choice" data-case="social">B. Ingegneria sociale</button><button class="choice" data-case="brute">C. Attacco delle teste di cuoio</button><button class="choice" data-case="ferrari">D. Strategia Ferrari</button></div><p id="caseMessage" class="message"></p><div id="caseFragment" class="fragment">CASO RISOLTO.<strong>I</strong></div><button id="next8" class="next-button">CONTINUA</button></div></section>
+
+<section id="module9" class="screen module-screen hidden"><div class="card"><p class="module-label">Modulo 09 · Precisione</p><h2>Qualifying mode</h2><div class="instruction">Il tempo perfetto non è il più veloce. È quello che sai riconoscere.<br><br>Giovane. Italiano. Numero... </div><div id="timerDisplay" class="timer">00:00.000</div><div class="button-stack"><button id="timerStart" class="action-button">AVVIA</button><button id="timerStop" class="action-button" disabled>STOP</button><button id="timerReset" class="action-button">RIPROVA</button></div><p id="timerMessage" class="message"></p><div id="timerFragment" class="fragment">GIRO VALIDO.<strong>I</strong></div><button id="next9" class="next-button">CONTINUA</button></div></section>
+
+<section id="module10" class="screen module-screen hidden"><div class="card"><p class="module-label">Modulo 10 · Reazione</p><h2>Race start protocol</h2><div class="instruction">Tocca AVVIA. Le luci si accenderanno. Quando si spengono, tocca immediatamente l’area di reazione.<br>Una partenza anticipata sarà registrata come falsa partenza.</div><div class="lights"><div class="light"></div><div class="light"></div><div class="light"></div><div class="light"></div><div class="light"></div></div><button id="reactionStart" class="action-button">AVVIA PROCEDURA</button><div id="reactionZone" class="reaction-zone">AREA DI REAZIONE</div><p id="reactionMessage" class="message"></p><div id="reactionFragment" class="fragment">PARTENZA VALIDA.<strong>O</strong></div><button id="next10" class="next-button">RICOMPONI I FRAMMENTI</button></div></section>
+
+
+  <!-- SCHERMATA ERRORE FINALE -->
+  <section id="finalErrorScreen" class="screen error-screen hidden">
+    <div class="error-panel">
+      <h2 class="blinking-error">ERRORE</h2>
+
+      <p class="warning-title">ATTENZIONE</p>
+
+      <p class="warning-copy">
+        La sospettata potrebbe aver costruito l’intero protocollo
+        per attirare la vittima a cena.
+      </p>
+
+      <button id="showFinalData" class="action-button" type="button">
+        VISUALIZZA DATI RECUPERATI
+      </button>
+    </div>
+  </section>
+
+<section id="finalModule" class="screen module-screen hidden"><div class="card"><p class="module-label">Accesso finale · Ricomposizione</p><h2>L’insieme è più della somma delle singole parti</h2><div class="instruction">Dieci frammenti sono stati recuperati.<br>L’ordine di acquisizione non è necessariamente l’ordine corretto.<br>Ricostruisci la chiave.</div><div id="fragmentsList" class="fragments-list"></div>
+    <div class="password-pattern" aria-label="Password di dieci lettere, quattro più sei">
+      <div class="password-group">
+        <span class="password-line"></span><span class="password-line"></span>
+        <span class="password-line"></span><span class="password-line"></span>
+      </div>
+      <span class="password-gap"></span>
+      <div class="password-group">
+        <span class="password-line"></span><span class="password-line"></span>
+        <span class="password-line"></span><span class="password-line"></span>
+        <span class="password-line"></span><span class="password-line"></span>
+      </div>
+    </div><form id="passwordForm"><label for="passwordAnswer">Inserisci la password finale:</label><div class="answer-row"><input id="passwordAnswer" autocomplete="off" placeholder="Password..."><button class="action-button" type="submit">SBLOCCA</button></div></form><p id="passwordMessage" class="message"></p><div id="fakeLoading" class="hidden"><p>CARICAMENTO RICOMPENSA...</p><div class="progress"><div id="progressBar" class="progress-bar"></div></div><p id="progressText" class="message"></p><button id="strategyButton" class="next-button">TENTA UNA STRATEGIA DIVERSA</button></div><div id="voucher" class="voucher hidden">
+        <h3>DINNER PROTOCOL UNLOCKED</h3>
+
+        <div class="final-data">
+          <div class="final-data-row">
+            <span>BENEFICIARIO</span>
+            <strong>Dott. Pablo Rimoldi</strong>
+          </div>
+
+          <div class="final-data-row">
+            <span>OFFERENTE</span>
+            <strong>Vale</strong>
+          </div>
+
+          <div class="final-data-row">
+            <span>OGGETTO</span>
+            <strong>Una cena</strong>
+          </div>
+
+          <div class="final-data-row">
+            <span>RISTORANTE</span>
+            <strong>A scelta del beneficiario</strong>
+          </div>
+
+          <div class="final-data-row">
+            <span>DATA</span>
+            <strong>A scelta del beneficiario</strong>
+          </div>
+
+          <div class="final-data-row">
+            <span>SCADENZA</span>
+            <strong>Nessuna</strong>
+          </div>
+
+          <div class="final-data-row">
+            <span>CONDIZIONE</span>
+            <strong>lasciarsi offridere</strong>
+          </div>
+
+          <div class="final-data-row">
+            <span>STATO</span>
+            <strong>AUTORIZZATO</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+const fragments=[];
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');window.scrollTo({top:0,behavior:'instant'})}
+function normalizeText(t){return t.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ')}
+function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+function unlock(fragmentId,nextId,letter,messageId,messageText){if(!fragments.includes(letter))fragments.push(letter);document.getElementById(fragmentId).style.display='block';document.getElementById(nextId).style.display='block';if(messageId){const e=document.getElementById(messageId);e.textContent=messageText;e.className='message success'}}
+function setupTextPuzzle(c){const form=document.getElementById(c.formId),input=document.getElementById(c.inputId),msg=document.getElementById(c.messageId),btn=form.querySelector('button');form.addEventListener('submit',e=>{e.preventDefault();const a=normalizeText(input.value);if(!a){msg.textContent='IL SISTEMA NON PUÒ ANALIZZARE IL VUOTO.';msg.className='message error';return}if(c.accepted.map(normalizeText).includes(a)){msg.textContent=c.successText;msg.className='message success';document.getElementById(c.fragmentId).style.display='block';document.getElementById(c.nextId).style.display='block';if(!fragments.includes(c.letter))fragments.push(c.letter);input.disabled=true;btn.disabled=true}else{msg.textContent=c.errorText;msg.className='message error';input.select()}});document.getElementById(c.nextId).addEventListener('click',()=>showScreen(c.nextScreen))}
+document.getElementById('startButton').addEventListener('click',async function(){this.disabled=true;const l=document.getElementById('loadingText');for(const m of ['INIZIALIZZAZIONE SISTEMA...','VERIFICA CANALE SICURO...','CARICAMENTO ARCHIVI RISERVATI...','IDENTIFICAZIONE SOGGETTO...','ACCESSO AL MODULO 01...']){l.textContent=m;await wait(420)}showScreen('module1')});
+setupTextPuzzle({formId:'turingForm',inputId:'turingAnswer',messageId:'turingMessage',fragmentId:'turingFragment',nextId:'next1',accepted:['turing','alan turing','alan mathison turing'],letter:'T',successText:'IDENTITÀ VERIFICATA.',errorText:'IDENTITÀ NON RICONOSCIUTA. Indizio: il suo test giudicava una macchina dalla conversazione.',nextScreen:'module2'});
+document.querySelectorAll('.guardian-choice').forEach(button=>button.addEventListener('click',()=>{const message=document.getElementById('guardianMessage');if(button.dataset.guardian==='b'){unlock('guardianFragment','next2','O','guardianMessage','RISPOSTA CORRETTA. Entrambi indicherebbero la porta sbagliata, quindi scegli quella opposta.');document.querySelectorAll('.guardian-choice').forEach(choice=>choice.disabled=true)}else{message.textContent='RISPOSTA NON SUFFICIENTE. Non sai quale guardiano stia parlando: la domanda deve funzionare con entrambi.';message.className='message error'}}));document.getElementById('next2').addEventListener('click',()=>showScreen('module3'));
+document.getElementById('hiddenDot').addEventListener('click',function(){this.disabled=true;this.style.display='none';unlock('hiddenFragment','next3','P','hiddenMessage','SEGNALE RILEVATO. Il punto è stato rimosso dal sistema.')});document.getElementById('next3').addEventListener('click',()=>showScreen('module4'));
+let timerStartTime=null,timerInterval=null,timerRunning=false;function formatTimer(ms){const s=Math.floor(ms/1000),m=Math.floor(ms%1000);return `00:${String(s).padStart(2,'0')}.${String(m).padStart(3,'0')}`};document.getElementById('timerStart').addEventListener('click',function(){if(timerRunning)return;timerRunning=true;timerStartTime=performance.now();document.getElementById('timerStop').disabled=false;this.disabled=true;timerInterval=setInterval(()=>document.getElementById('timerDisplay').textContent=formatTimer(performance.now()-timerStartTime),16)});document.getElementById('timerStop').addEventListener('click',function(){if(!timerRunning)return;timerRunning=false;clearInterval(timerInterval);const e=performance.now()-timerStartTime,d=Math.abs(e-12000),m=document.getElementById('timerMessage');document.getElementById('timerDisplay').textContent=formatTimer(e);if(d<=200){unlock('timerFragment','next9','I','timerMessage',`GIRO VALIDO. Tempo: ${formatTimer(e)}.`)}else{m.textContent=`TEMPO NON VALIDO: ${formatTimer(e)}. Scarto massimo ammesso: ±0.200 s. Il sistema non premia la mediocrità.`;m.className='message error';document.getElementById('timerStart').disabled=false;this.disabled=true}});document.getElementById('timerReset').addEventListener('click',()=>{clearInterval(timerInterval);timerRunning=false;document.getElementById('timerDisplay').textContent='00:00.000';document.getElementById('timerStart').disabled=false;document.getElementById('timerStop').disabled=true});document.getElementById('next9').addEventListener('click',()=>showScreen('module10'));
+document.getElementById('pytorchVerify').addEventListener('click',()=>{
+  const editor=document.getElementById('pytorchEditor');
+  const message=document.getElementById('pytorchMessage');
+
+  const code=editor.value
+    .replace(/\s+/g,'')
+    .toLowerCase();
+
+  const validPatterns=[
+    'prediction=torch.argmax(logits,dim=1)',
+    'prediction=torch.argmax(logits,1)'
+  ];
+
+  if(validPatterns.includes(code)){
+    unlock(
+      'pytorchFragment',
+      'next5',
+      'T',
+      'pytorchMessage',
+      'DEBUG COMPLETATO. Il modello ora seleziona la classe lungo la dimensione corretta.'
+    );
+
+    editor.disabled=true;
+    document.getElementById('pytorchVerify').disabled=true;
+  }else{
+    message.textContent='OUTPUT ANCORA ERRATO. Il problema non è torch.argmax: è la dimensione lungo cui stai cercando il massimo.';
+    message.className='message error';
+    editor.focus();
+  }
+});
+
+document.getElementById('next5').addEventListener('click',()=>showScreen('module6'));
+const pads=[...document.querySelectorAll('.memory-pad')];let seq=[],user=[],round=0,locked=true;const roundLengths=[3,4,6];
+
+async function flash(i){
+  pads[i].classList.add('active');
+  await wait(350);
+  pads[i].classList.remove('active');
+  await wait(150);
+}
+
+function makeSequence(length){
+  return Array.from({length},()=>Math.floor(Math.random()*4));
+}
+
+async function play(){
+  locked=true;
+  user=[];
+
+  const length=roundLengths[round-1];
+  const message=document.getElementById('memoryMessage');
+
+  message.textContent=`ROUND ${round}/3 · ${length} LUCI: osserva.`;
+  message.className='message';
+
+  for(const i of seq) await flash(i);
+
+  locked=false;
+  message.textContent='Ripeti la sequenza nello stesso ordine.';
+}
+
+function nextRound(){
+  round++;
+  seq=makeSequence(roundLengths[round-1]);
+  play();
+}
+
+document.getElementById('memoryStart').addEventListener('click',function(){
+  this.disabled=true;
+  seq=[];
+  user=[];
+  round=0;
+  nextRound();
+});
+
+pads.forEach((p,i)=>p.addEventListener('click',async()=>{
+  if(locked) return;
+
+  await flash(i);
+  user.push(i);
+
+  const j=user.length-1;
+
+  if(user[j]!==seq[j]){
+    const m=document.getElementById('memoryMessage');
+
+    m.textContent='PATTERN INTERROTTO. Il sistema azzera tutti i round.';
+    m.className='message error';
+
+    seq=[];
+    user=[];
+    round=0;
+    locked=true;
+
+    document.getElementById('memoryStart').disabled=false;
+    return;
+  }
+
+  if(user.length===seq.length){
+    if(round===3){
+      locked=true;
+      unlock(
+        'memoryFragment',
+        'next6',
+        'I',
+        'memoryMessage',
+        'PATTERN RICONOSCIUTO. Sei luci memorizzate. Il cervello umano conserva ancora qualche utilità.'
+      );
+    }else{
+      locked=true;
+
+      const m=document.getElementById('memoryMessage');
+      m.textContent=`ROUND ${round} SUPERATO. Preparazione del successivo...`;
+      m.className='message success';
+
+      await wait(850);
+      nextRound();
+    }
+  }
+}));
+
+document.getElementById('next6').addEventListener('click',()=>showScreen('module7'));
+setupTextPuzzle({formId:'teslaForm',inputId:'teslaAnswer',messageId:'teslaMessage',fragmentId:'teslaFragment',nextId:'next7',accepted:['tesla','nikola tesla'],letter:'M',successText:'ENERGIA STABILIZZATA.',errorText:'IDENTITÀ NON RICONOSCIUTA. Indizio: il suo cognome oggi è anche un marchio automobilistico.',nextScreen:'module8'});
+document.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{const m=document.getElementById('caseMessage');if(c.dataset.case==='social'){unlock('caseFragment','next8','I','caseMessage','CASO RISOLTO. Metodo: manipolazione dell’attenzione.')}else{m.textContent=c.dataset.case==='ferrari'?'IPOTESI EMOTIVAMENTE PLAUSIBILE, GIURIDICAMENTE FRAGILE.':'RICOSTRUZIONE INCOMPLETA.';m.className='message error'}}));document.getElementById('next8').addEventListener('click',()=>showScreen('module9'));
+setupTextPuzzle({
+      formId:'italiaForm',
+      inputId:'italiaAnswer',
+      messageId:'italiaMessage',
+      fragmentId:'italiaFragment',
+      nextId:'next4',
+      accepted:['thailandia','la thailandia','thailand'],
+      letter:'D',
+      successText:'IDENTITÀ CONFERMATA. Il nome moderno richiama la terra degli uomini liberi.',
+      errorText:'IDENTITÀ NON RICONOSCIUTA. Indizio: un tempo era chiamata Siam.',
+      nextScreen:'module5'
+    });
+const lights=[...document.querySelectorAll('.light')],rStart=document.getElementById('reactionStart'),rZone=document.getElementById('reactionZone');let rState='idle',rTimeout=null,rTime=null;
+
+function resetReaction(){
+  clearTimeout(rTimeout);
+  lights.forEach(light=>light.classList.remove('on'));
+  rState='idle';
+  rTime=null;
+  rStart.disabled=false;
+  rStart.textContent='RIPROVA';
+  rZone.textContent='AREA DI REAZIONE';
+  rZone.classList.remove('ready');
+}
+
+async function lightsOn(){
+  lights.forEach(light=>light.classList.remove('on'));
+
+  for(const light of lights){
+    if(rState!=='waiting') return;
+    light.classList.add('on');
+    await wait(300);
+  }
+
+  if(rState!=='waiting') return;
+
+  rTimeout=setTimeout(()=>{
+    lights.forEach(light=>light.classList.remove('on'));
+    rTime=performance.now();
+    rState='go';
+    rZone.textContent='TOCCA ORA';
+    rZone.classList.add('ready');
+  },1200+Math.random()*1600);
+}
+
+rStart.addEventListener('click',()=>{
+  if(rState!=='idle') return;
+
+  rState='waiting';
+  rStart.disabled=true;
+  rStart.textContent='PROCEDURA IN CORSO';
+  rZone.textContent='ATTENDI LO SPEGNIMENTO DELLE LUCI';
+  rZone.classList.remove('ready');
+
+  const message=document.getElementById('reactionMessage');
+  message.textContent='';
+  message.className='message';
+
+  lightsOn();
+});
+
+rZone.addEventListener('click',()=>{
+  const message=document.getElementById('reactionMessage');
+
+  if(rState==='idle'){
+    message.textContent='AVVIA PRIMA LA PROCEDURA.';
+    message.className='message error';
+    return;
+  }
+
+  if(rState==='waiting'){
+    message.textContent='FALSE START. Puoi riprovare.';
+    message.className='message error';
+    resetReaction();
+    return;
+  }
+
+  if(rState==='go'){
+    const reactionTime=performance.now()-rTime;
+    rState='done';
+    rZone.classList.remove('ready');
+    rZone.textContent='PROCEDURA COMPLETATA';
+    rStart.disabled=true;
+    rStart.textContent='COMPLETATO';
+
+    unlock('reactionFragment','next10','O','reactionMessage',`PARTENZA VALIDA. Reazione: ${Math.round(reactionTime)} ms.`);
+  }
+});
+document.getElementById('next10').addEventListener('click',()=>{const list=document.getElementById('fragmentsList');list.innerHTML='';fragments.forEach(l=>{const d=document.createElement('div');d.className='fragment-chip';d.textContent=l;list.appendChild(d)});showScreen('finalModule')});
+document.getElementById('passwordForm').addEventListener('submit',async e=>{e.preventDefault();const a=normalizeText(document.getElementById('passwordAnswer').value).replace(/\s+/g,''),m=document.getElementById('passwordMessage');if(a!=='tipotimido'){m.textContent='ACCESSO NEGATO. L’ordine di acquisizione non è l’ordine corretto.';m.className='message error';return}m.textContent='PASSWORD CORRETTA.';m.className='message success';document.getElementById('passwordForm').classList.add('hidden');document.getElementById('fakeLoading').classList.remove('hidden');const bar=document.getElementById('progressBar'),text=document.getElementById('progressText');for(let v=0;v<=99;v++){bar.style.width=v+'%';await wait(18)}text.textContent='ERRORE: ricompensa non disponibile. Possibili cause: beneficiario troppo timido; portafoglio nuovamente sottratto; strategia Ferrari.';text.className='message error';await wait(8000);showScreen('finalErrorScreen')});
+
+document.getElementById('showFinalData').addEventListener('click',()=>{
+  showScreen('finalModule');
+  document.getElementById('fakeLoading').classList.add('hidden');
+  document.getElementById('passwordForm').classList.add('hidden');
+  document.getElementById('passwordMessage').textContent='';
+  document.getElementById('voucher').classList.remove('hidden');
+});
+
+  </script>
+</body>
+</html>
